@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: frontend-api
-          image: svestor/kube-tasks-app-frontend
+          image: svestor/kube-tasks-app-frontend:latest
           imagePullPolicy: Always
           # env:
           # - name: TASK_ADDRESS
