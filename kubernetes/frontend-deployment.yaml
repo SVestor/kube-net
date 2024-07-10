@@ -18,7 +18,7 @@ spec:
           imagePullPolicy: Always
           # env:
           # - name: TASK_ADDRESS
-          #   value: "tasks-service.default"
+          #   value: "tasks-service.default:80"
           resources:
             requests:
               memory: "32Mi"
