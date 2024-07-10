@@ -1,0 +1,32 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: front-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend-api
+          image: svestor/kube-tasks-app-frontend
+          imagePullPolicy: Always
+          # env:
+          #   - name: AUTH_ADDRESS
+          #     value: "auth-service.default"
+          #   - name: TASKS_FOLDER
+          #     value: "tasks"  
+          resources:
+            requests:
+              memory: "32Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "256m"
+          ports:
+          - containerPort: 80       
