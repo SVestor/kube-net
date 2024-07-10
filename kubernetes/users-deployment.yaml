@@ -1,0 +1,33 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: users-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users
+  template:
+    metadata:
+      labels:
+        app: users
+    spec:
+      containers:
+        - name: users-data
+          image: svestor/kube-user-app-demo:latest
+          imagePullPolicy: Always
+          env:
+            - name: AUTH_ADDRESS
+              value: "auth-service.default" # also we can comunicate through auto generated dns names btw our pods in our namespace (default)
+          #     value: '10.109.187.190'  // kubernetes is automatically generate env 
+          #                              // variable with the service ip SERVICENAME_SERVICE_HOST / AUTH_SERVICE_SERVICE_HOST
+          resources:
+            requests:
+              memory: "32Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "256m"
+          ports:
+          - containerPort: 8080
+

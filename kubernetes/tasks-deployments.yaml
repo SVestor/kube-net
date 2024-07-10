@@ -1,0 +1,40 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: tasks-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users-tasks
+  template:
+    metadata:
+      labels:
+        app: users-tasks
+    spec:
+      containers:
+        - name: tasks-api
+          image: svestor/kube-tasks-app-demo
+          imagePullPolicy: Always
+          env:
+            - name: AUTH_ADDRESS
+              value: "auth-service.default"
+            - name: TASKS_FOLDER
+              value: "tasks"  
+          resources:
+            requests:
+              memory: "32Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "256m"
+          ports:
+          - containerPort: 8000
+          volumeMounts:
+            - mountPath: /app/tasks
+              name: tasks-volume
+      volumes:
+        - name: tasks-volume
+          hostPath:
+            path: '/data'
+            type: DirectoryOrCreate        
