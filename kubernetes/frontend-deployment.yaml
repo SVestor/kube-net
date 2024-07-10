@@ -17,10 +17,8 @@ spec:
           image: svestor/kube-tasks-app-frontend
           imagePullPolicy: Always
           # env:
-          #   - name: AUTH_ADDRESS
-          #     value: "auth-service.default"
-          #   - name: TASKS_FOLDER
-          #     value: "tasks"  
+          # - name: TASK_ADDRESS
+          #   value: "tasks-service.default"
           resources:
             requests:
               memory: "32Mi"
